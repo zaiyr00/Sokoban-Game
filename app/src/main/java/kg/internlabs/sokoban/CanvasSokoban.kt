@@ -11,6 +11,7 @@ class CanvasSokoban: View {
     private val bitmapDiamondIcon: Bitmap
     private val bitmapFloorIcon: Bitmap
     private val bitmapWallIcon: Bitmap
+    private var isStarted: Boolean
 
     private var level: Array<Array<Int>>
 
@@ -25,28 +26,8 @@ class CanvasSokoban: View {
         bitmapWallIcon = BitmapFactory.decodeResource(resources, R.drawable.brick_wall)
         val levels = Levels()
         level = levels.getLevelOne()
+        isStarted = false
 
-        var left = 0
-        var top = 0
-        var right = 180
-        var bottom = 180
-
-        for(row in level) {
-            for(cell in row) {
-                when (cell) {
-                    4 -> {
-                        model.setX(left)
-                        model.setY(top)
-                    }
-                }
-                left+=180
-                right+=180
-            }
-            left -= 1440
-            right -= 1440
-            top += 180
-            bottom += 180
-        }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -54,7 +35,6 @@ class CanvasSokoban: View {
         var top = 0
         var right = 180
         var bottom = 180
-
 
         for(row in level) {
             for(cell in row) {
@@ -74,6 +54,11 @@ class CanvasSokoban: View {
                         canvas.drawBitmap(bitmapBoxIcon, null, Rect(left, top, right, bottom), null)
                     }
                     4 -> {
+                        if(!isStarted) {
+                            model.setX(left)
+                            model.setY(top)
+                            isStarted = true
+                        }
                         canvas.drawBitmap(bitmapFloorIcon, null, Rect(left, top, right, bottom), null)
                         canvas.drawBitmap(bitmapGamerIcon, null, Rect(model.getX(), model.getY(), model.getX() + 180, model.getY() + 180), null)
                     }
