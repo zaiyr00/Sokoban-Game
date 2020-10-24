@@ -11,9 +11,12 @@ class CanvasSokoban: View {
     private val bitmapDiamondIcon: Bitmap
     private val bitmapFloorIcon: Bitmap
     private val bitmapWallIcon: Bitmap
-    private var isStarted: Boolean
+    private var mHeight: Int
+    private var mWidth: Int
+    private var blockVerticalSize: Int
+    private var blockHorizontalSize: Int
 
-    private var level: Array<Array<Int>>
+    private var map: Array<Array<Int>>
 
     public constructor(viewer: ViewerActivity, model: Model) : super(viewer) {
         this.model = model
@@ -24,19 +27,28 @@ class CanvasSokoban: View {
         bitmapDiamondIcon = BitmapFactory.decodeResource(resources, R.drawable.diamond)
         bitmapFloorIcon = BitmapFactory.decodeResource(resources, R.drawable.floor)
         bitmapWallIcon = BitmapFactory.decodeResource(resources, R.drawable.brick_wall)
-        val levels = Levels()
-        level = levels.getLevelOne()
-        isStarted = false
+        map = model.updateMap()
+        mHeight = 0
+        mWidth = 0
+        blockVerticalSize = 0
+        blockHorizontalSize = 0
+    }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        mHeight = MeasureSpec.getSize(heightMeasureSpec)
+        mWidth = MeasureSpec.getSize(widthMeasureSpec)
+        blockVerticalSize = mWidth / 8
+        blockHorizontalSize = mHeight / 12
     }
 
     override fun onDraw(canvas: Canvas) {
         var left = 0
         var top = 0
-        var right = 180
-        var bottom = 180
+        var right = blockVerticalSize
+        var bottom = blockHorizontalSize
 
-        for(row in level) {
+        for(row in map) {
             for(cell in row) {
                 when (cell) {
                     0 -> {
@@ -54,22 +66,17 @@ class CanvasSokoban: View {
                         canvas.drawBitmap(bitmapBoxIcon, null, Rect(left, top, right, bottom), null)
                     }
                     4 -> {
-                        if(!isStarted) {
-                            model.setX(left)
-                            model.setY(top)
-                            isStarted = true
-                        }
                         canvas.drawBitmap(bitmapFloorIcon, null, Rect(left, top, right, bottom), null)
-                        canvas.drawBitmap(bitmapGamerIcon, null, Rect(model.getX(), model.getY(), model.getX() + 180, model.getY() + 180), null)
+                        canvas.drawBitmap(bitmapGamerIcon, null, Rect(left, top, right, bottom), null)
                     }
                 }
-                left += 180
-                right += 180
+                left += blockVerticalSize
+                right += blockVerticalSize
             }
-            left -= 1440
-            right -= 1440
-            top += 180
-            bottom += 180
+            left -= blockVerticalSize * 8
+            right -= blockVerticalSize * 8
+            top += blockHorizontalSize
+            bottom += blockHorizontalSize
         }
     }
 
