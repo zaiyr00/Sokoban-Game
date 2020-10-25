@@ -1,5 +1,9 @@
 package kg.internlabs.sokoban
 
+import android.app.AlertDialog
+import android.view.View
+import kotlinx.android.synthetic.main.dialog_view.view.*
+
 class Model {
     private val viewer: ViewerActivity
     private var xPosition: Int
@@ -7,15 +11,15 @@ class Model {
     private var map: Array<Array<Int>>
     private var levels: Levels
     private var isCurrentOnBox: Boolean
-    private var targetPositions: Array<IntArray>
+    private var targetsPositions: Array<IntArray>
 
     public constructor(viewer: ViewerActivity) {
         this.viewer = viewer
         xPosition = 0
         yPosition = 0
         levels = Levels()
-        map = levels.getLevelOne()
-        targetPositions = initialize()
+        map = levels.nextLevel()
+        targetsPositions = initialize()
         isCurrentOnBox = false
     }
 
@@ -35,6 +39,35 @@ class Model {
         return listOfTargets.toTypedArray()
     }
 
+    fun openDialog() {
+        val view: View = View.inflate(viewer, R.layout.dialog_view, null)
+        val builder = AlertDialog.Builder(viewer)
+        builder.setView(view)
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.setCancelable(false)
+        view.btn_next.setOnClickListener {
+            map = levels.nextLevel()
+            targetsPositions = initialize()
+            isCurrentOnBox = false
+            viewer.update()
+            dialog.dismiss()
+        }
+    }
+
+    fun doAction(action: String) {
+        when (action) {
+            "Restart" -> {
+                map = levels.resetLevel()
+                targetsPositions = initialize()
+                isCurrentOnBox = false
+                viewer.update()
+            }
+            else -> return
+        }
+    }
+
     fun move(direction: String?) {
         when (direction) {
             "Left" ->{
@@ -51,9 +84,12 @@ class Model {
             }
             else -> return
         }
-        isPlayerWon()
+        if(isPlayerWon()){
+            openDialog()
+        }
         isTargetChanged()
         viewer.update()
+
     }
 
     private fun moveRight() {
@@ -173,18 +209,22 @@ class Model {
         return map
    }
 
-   private fun isPlayerWon() : Boolean {
+   fun isPlayerWon() : Boolean {
        var counter = 0
-       for(target in targetPositions) {
+       for(target in targetsPositions) {
            if (map[target[0]][target[1]] == SokobanProperties.DIAMOND) counter++
        }
-       return counter == targetPositions.size
+       return counter == targetsPositions.size
    }
 
     private fun isTargetChanged() {
-        for(target in targetPositions) {
+        for(target in targetsPositions) {
             if (map[target[0]][target[1]] == SokobanProperties.FLOOR) map[target[0]][target[1]] = SokobanProperties.BOX
         }
+    }
+
+    fun getTargetsPositions():  Array<IntArray> {
+        return targetsPositions
     }
 
 }

@@ -5,7 +5,7 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import android.view.View
 
-class Controller : View.OnTouchListener, SimpleOnGestureListener {
+class Controller : View.OnTouchListener, View.OnClickListener, SimpleOnGestureListener {
 
     private val model: Model
     private val gestureDetector: GestureDetector
@@ -79,5 +79,13 @@ class Controller : View.OnTouchListener, SimpleOnGestureListener {
 
     fun onSwipeBottom() {
         model.move("Down")
+    }
+
+    override fun onClick(view: View) {
+        var action: String = ""
+        when(view.id) {
+            R.id.nav_restart -> action = "Restart"
+        }
+        model.doAction(action)
     }
 }

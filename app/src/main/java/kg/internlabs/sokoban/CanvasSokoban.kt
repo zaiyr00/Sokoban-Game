@@ -6,7 +6,7 @@ import android.view.View
 
 class CanvasSokoban: View {
     private val model: Model
-    private val bitmapGamerIcon: Bitmap
+    private val bitmapPlayerIcon: Bitmap
     private val bitmapBoxIcon: Bitmap
     private val bitmapDiamondIcon: Bitmap
     private val bitmapFloorIcon: Bitmap
@@ -16,22 +16,22 @@ class CanvasSokoban: View {
     private var blockVerticalSize: Int
     private var blockHorizontalSize: Int
 
-    private var map: Array<Array<Int>>
+//    private var targetsPositions: Array<IntArray>
 
     public constructor(viewer: ViewerActivity, model: Model) : super(viewer) {
         this.model = model
         setBackgroundResource(R.drawable.background)
 
-        bitmapGamerIcon = BitmapFactory.decodeResource(resources, R.drawable.mario)
+        bitmapPlayerIcon = BitmapFactory.decodeResource(resources, R.drawable.mario)
         bitmapBoxIcon = BitmapFactory.decodeResource(resources, R.drawable.box)
         bitmapDiamondIcon = BitmapFactory.decodeResource(resources, R.drawable.diamond)
         bitmapFloorIcon = BitmapFactory.decodeResource(resources, R.drawable.floor)
         bitmapWallIcon = BitmapFactory.decodeResource(resources, R.drawable.brick_wall)
-        map = model.updateMap()
         mHeight = 0
         mWidth = 0
         blockVerticalSize = 0
         blockHorizontalSize = 0
+//        targetsPositions = model.getTargetsPositions()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -48,7 +48,7 @@ class CanvasSokoban: View {
         var right = blockVerticalSize
         var bottom = blockHorizontalSize
 
-        for(row in map) {
+        for(row in model.updateMap()) {
             for(cell in row) {
                 when (cell) {
                     0 -> {
@@ -67,7 +67,7 @@ class CanvasSokoban: View {
                     }
                     4 -> {
                         canvas.drawBitmap(bitmapFloorIcon, null, Rect(left, top, right, bottom), null)
-                        canvas.drawBitmap(bitmapGamerIcon, null, Rect(left, top, right, bottom), null)
+                        canvas.drawBitmap(bitmapPlayerIcon, null, Rect(left, top, right, bottom), null)
                     }
                 }
                 left += blockVerticalSize
