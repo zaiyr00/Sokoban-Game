@@ -1,2 +1,0 @@
-package kg.internlabs.sokoban
-

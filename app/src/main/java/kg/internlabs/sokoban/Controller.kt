@@ -1,11 +1,10 @@
 package kg.internlabs.sokoban
 
-import android.view.GestureDetector
+import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
-import android.view.MotionEvent
-import android.view.View
+import kotlinx.android.synthetic.main.dialog_view.view.*
 
-class Controller : View.OnTouchListener, View.OnClickListener, SimpleOnGestureListener {
+class Controller : View.OnTouchListener, SimpleOnGestureListener, View.OnClickListener {
 
     private val model: Model
     private val gestureDetector: GestureDetector
@@ -38,7 +37,7 @@ class Controller : View.OnTouchListener, View.OnClickListener, SimpleOnGestureLi
             val diffY = e2.y - e1.y
             val diffX = e2.x - e1.x
             if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                if (Math.abs(diffX) > SokobanProperties.SWIPE_THRESHOLD && Math.abs(velocityX) > SokobanProperties.SWIPE_VELOCITY_THRESHOLD) {
                     if (diffX > 0) {
                         onSwipeRight()
                     } else {
@@ -46,7 +45,7 @@ class Controller : View.OnTouchListener, View.OnClickListener, SimpleOnGestureLi
                     }
                     result = true
                 }
-            } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+            } else if (Math.abs(diffY) > SokobanProperties.SWIPE_THRESHOLD && Math.abs(velocityY) > SokobanProperties.SWIPE_VELOCITY_THRESHOLD) {
                 if (diffY > 0) {
                     onSwipeBottom()
                 } else {
@@ -58,11 +57,6 @@ class Controller : View.OnTouchListener, View.OnClickListener, SimpleOnGestureLi
             exception.printStackTrace()
         }
         return result
-    }
-
-    companion object {
-        private const val SWIPE_THRESHOLD = 100
-        private const val SWIPE_VELOCITY_THRESHOLD = 100
     }
 
     fun onSwipeRight() {
@@ -81,10 +75,21 @@ class Controller : View.OnTouchListener, View.OnClickListener, SimpleOnGestureLi
         model.move("Down")
     }
 
+    fun onItemSelected(item: MenuItem): Boolean {
+        var action: String = ""
+        when(item.itemId) {
+            R.id.nav_restart -> action = "Restart"
+        }
+        model.doAction(action)
+        return true
+    }
+
     override fun onClick(view: View) {
         var action: String = ""
-        when(view.id) {
-            R.id.nav_restart -> action = "Restart"
+        when (view) {
+            view.btn_next -> {
+                action = "Next"
+            }
         }
         model.doAction(action)
     }
