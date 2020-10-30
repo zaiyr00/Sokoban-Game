@@ -13,7 +13,7 @@ class Model {
         this.viewer = viewer
         xPosition = 0
         yPosition = 0
-        levels = Levels()
+        levels = Levels(viewer)
         map = levels.nextLevel()
         targetsPositions = initialize()
         isCurrentOnBox = false

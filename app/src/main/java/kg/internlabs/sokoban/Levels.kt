@@ -2,15 +2,17 @@ package kg.internlabs.sokoban
 
 import android.os.StrictMode
 import java.io.BufferedReader
-import java.io.FileReader
-import java.util.*
+import java.io.InputStream
+import java.io.InputStreamReader
 
 public class Levels {
 
+    private val viewer: ViewerActivity
     private var nextLevel: Int
     private var currentLevel: Int
 
-    constructor() {
+    constructor(viewer: ViewerActivity) {
+        this.viewer = viewer
         nextLevel = 1
         currentLevel = 1
     }
@@ -37,18 +39,9 @@ public class Levels {
     }
 
     private fun getLevelOne(): Array<Array<Int>> {
-//        val activity = Activity()
-//        val f = activity.applicationContext.assets.open("levelFour.txt").bufferedReader().use {
-//            it.readText()
-//        }
-//        println("-------------------------- $f")
-//        var txt = ""
-//        val inputStream: InputStream = activity.resources.openRawResource(R.raw.levelfour)
-//        val buffer = byteArrayOf(inputStream.available().toByte())
-//        while (inputStream.read(buffer) != -1) {
-//            txt = buffer.toString()
-//        }
-//        println("----------------------------- $txt")
+        val inputStream= viewer.resources
+//        val bufferedReader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+        println("-------------------------- ${inputStream}")
 
         val map: Array<Array<Int>> = Array(12) { Array(8) { 0 } }
         map[0] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
@@ -101,16 +94,20 @@ public class Levels {
     }
 
     private fun getLevelFour(): Array<Array<Int>> {
-        val sc = Scanner(BufferedReader(FileReader("src/main/res/levelFour.txt")))
-        val map: Array<Array<Int>> = Array(12) { Array(8) { 0 } }
-        while (sc.hasNextLine()) {
-            for (i in map.indices) {
-                val line: List<String> = sc.nextLine().trim().split(" ")
-                for (j in line.indices) {
-                    map[i][j] = line[j].toInt()
-                }
-            }
-        }
+        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelFour.txt")
+        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
+        return map
+    }
+
+    private fun getLevelFive(): Array<Array<Int>> {
+        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelFive.txt")
+        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
+        return map
+    }
+
+    private fun getLevelSix(): Array<Array<Int>> {
+        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelSix.txt")
+        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
         return map
     }
     

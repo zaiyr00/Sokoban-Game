@@ -7,6 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.dialog_view.view.*
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
 
 class ViewerActivity : AppCompatActivity {
     private val controller: Controller
@@ -24,6 +27,7 @@ class ViewerActivity : AppCompatActivity {
         canvas = CanvasSokoban(this, controller.getModel())
         canvas?.setOnTouchListener(controller)
         setContentView(canvas)
+
     }
 
     fun openDialog() {
@@ -54,4 +58,5 @@ class ViewerActivity : AppCompatActivity {
     fun update() {
         canvas?.update()
     }
+
 }

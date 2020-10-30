@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class ConnectToServer extends Thread {
     private int message;
-    Socket echoSocket = new Socket("194.152.37.7", 4445);
+    Socket echoSocket = new Socket("192.168.15.102", 4445);
 
     public ConnectToServer(int message) throws IOException {
         super();
