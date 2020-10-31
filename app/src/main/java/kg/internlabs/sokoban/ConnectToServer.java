@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class ConnectToServer extends Thread {
     private int message;
-    Socket echoSocket = new Socket("192.168.15.102", 4445);
+    Socket echoSocket = new Socket("194.152.37.7", 4445);
 
     public ConnectToServer(int message) throws IOException {
         super();
@@ -40,19 +40,19 @@ public class ConnectToServer extends Thread {
         try {
             InputStreamReader inputStreamReader = new InputStreamReader(echoSocket.getInputStream());
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String response = bufferedReader.readLine();
+            StringBuilder content = new StringBuilder();
+            String line;
 
-            return response;
+            while (!(line = bufferedReader.readLine()).isEmpty()) {
+                content.append(line);
+                content.append(System.lineSeparator());
+            }
+
+            return content.toString();
         } catch (IOException e) {
             e.printStackTrace();
             return String.valueOf(e);
         }
     }
 
-//    public static void main(String[] args) throws IOException {
-//        ConnectToServer connectToServer = new ConnectToServer(7);
-//        connectToServer.go();
-//        int[][] map = connectToServer.getResponse();
-//        System.out.println(map);
-//    }
 }

@@ -26,23 +26,28 @@ public class Levels {
         return chooseLevel(currentLevel)
     }
 
-    fun chooseLevel(numOfLevel: Int): Array<Array<Int>> {
+    private fun startOver() : Array<Array<Int>> {
+        nextLevel = 2
+        currentLevel = 1
+        return getLevelOne()
+    }
+
+    private fun chooseLevel(numOfLevel: Int): Array<Array<Int>> {
         var map: Array<Array<Int>> = Array(12){Array(8) {0} }
         when(numOfLevel) {
             1 -> map = getLevelOne()
             2 -> map = getLevelTwo()
             3 -> map = getLevelThree()
             4 -> map = getLevelFour()
-            7, 8 -> map = getServerLevel(numOfLevel)
+            5 -> map = getLevelFive()
+            6 -> map = getLevelSix()
+            7, 8, 9 -> map = getServerLevel(numOfLevel)
+            else -> map = startOver()
         }
         return map
     }
 
     private fun getLevelOne(): Array<Array<Int>> {
-        val inputStream= viewer.resources
-//        val bufferedReader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-        println("-------------------------- ${inputStream}")
-
         val map: Array<Array<Int>> = Array(12) { Array(8) { 0 } }
         map[0] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
         map[1] = arrayOf(1, 3, 0, 0, 0, 0, 3, 1)
@@ -116,21 +121,8 @@ public class Levels {
         StrictMode.setThreadPolicy(policy)
         val connectToServer = ConnectToServer(numOfLevel)
         connectToServer.go()
-
         var response: String = connectToServer.getResponse()
-        response = response.replace("[", "") // replacing all [ to ""
-        response = response.substring(0, response.length - 2) // ignoring last two ]]
-        val s1 = response.split("],".toRegex()).toTypedArray() // separating all by "],"
-        val map= Array(12) { Array(8) { 0 } } // declaring two dimensional matrix for input
-
-        for (i in s1.indices) {
-            s1[i] = s1[i].trim { it <= ' ' } // ignoring all extra space if the string s1[i] has
-            val single_int =
-                s1[i].split(", ".toRegex()).toTypedArray() // separating integers by ", "
-            for (j in single_int.indices) {
-                map[i][j] = single_int[j].toInt() // adding single values
-            }
-        }
+        val map: Array<Array<Int>> = MapFileManagement().getMap(response)
         return map
     }
 }

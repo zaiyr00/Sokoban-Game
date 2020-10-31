@@ -1,25 +1,32 @@
 package kg.internlabs.sokoban
 
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+
 class Model {
     private val viewer: ViewerActivity
     private var xPosition: Int
     private var yPosition: Int
-    private var map: Array<Array<Int>>
+    private lateinit var map: Array<Array<Int>>
     private var levels: Levels
     private var isCurrentOnBox: Boolean
-    private var targetsPositions: Array<IntArray>
+    private lateinit var targetsPositions: Array<IntArray>
 
     public constructor(viewer: ViewerActivity) {
         this.viewer = viewer
         xPosition = 0
         yPosition = 0
-        levels = Levels(viewer)
-        map = levels.nextLevel()
-        targetsPositions = initialize()
         isCurrentOnBox = false
+        levels = Levels(viewer)
     }
 
-    private fun initialize() : Array<IntArray> {
+    fun createMap() {
+        map = levels.nextLevel()
+        targetsPositions = initialize()
+    }
+
+    fun initialize() : Array<IntArray> {
         val listOfTargets = ArrayList<IntArray>()
         for (row: Int in map.indices) {
             for (cell in map[row].indices) {

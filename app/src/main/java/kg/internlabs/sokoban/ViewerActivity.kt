@@ -28,6 +28,7 @@ class ViewerActivity : AppCompatActivity {
         canvas?.setOnTouchListener(controller)
         setContentView(canvas)
 
+        controller.runGame()
     }
 
     fun openDialog() {

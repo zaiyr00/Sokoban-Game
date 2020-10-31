@@ -26,6 +26,10 @@ class Controller : View.OnTouchListener, SimpleOnGestureListener, View.OnClickLi
         return true
     }
 
+    fun runGame() {
+        model.createMap()
+    }
+
     override fun onFling(
         e1: MotionEvent,
         e2: MotionEvent,
