@@ -5,8 +5,15 @@ import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
 
-public class Levels {
+/*
+* Sokoban Game
+* Intern Labs 2.0
+* @version 1.0
+* @author Zaiyr Sharsheev <zaiyr.00@gmail.com>
+* 01.11.2020
+*/
 
+public class Levels {
     private val viewer: ViewerActivity
     private var nextLevel: Int
     private var currentLevel: Int
@@ -33,16 +40,16 @@ public class Levels {
     }
 
     private fun chooseLevel(numOfLevel: Int): Array<Array<Int>> {
-        var map: Array<Array<Int>> = Array(12){Array(8) {0} }
-        when(numOfLevel) {
-            1 -> map = getLevelOne()
-            2 -> map = getLevelTwo()
-            3 -> map = getLevelThree()
-            4 -> map = getLevelFour()
-            5 -> map = getLevelFive()
-            6 -> map = getLevelSix()
-            7, 8, 9 -> map = getServerLevel(numOfLevel)
-            else -> map = startOver()
+        var map: Array<Array<Int>>
+        map = when(numOfLevel) {
+            1 -> getLevelOne()
+            2 -> getLevelTwo()
+            3 -> getLevelThree()
+            4 -> getLevelFour()
+            5 -> getLevelFive()
+            6 -> getLevelSix()
+            7, 8, 9 -> getServerLevel(numOfLevel)
+            else -> startOver()
         }
         return map
     }

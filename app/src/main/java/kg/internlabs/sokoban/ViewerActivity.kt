@@ -7,14 +7,18 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.dialog_view.view.*
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
+
+/*
+* Sokoban Game 
+* Intern Labs 2.0
+* @version 1.0
+* @author Zaiyr Sharsheev <zaiyr.00@gmail.com>
+* 01.11.2020
+*/
 
 class ViewerActivity : AppCompatActivity {
     private val controller: Controller
     private var canvas: CanvasSokoban?
-    // I don't need to initialize dialog in constructor during creating ViewerActivity
     private lateinit var dialog: AlertDialog
 
     public constructor() {
@@ -27,10 +31,10 @@ class ViewerActivity : AppCompatActivity {
         canvas = CanvasSokoban(this, controller.getModel())
         canvas?.setOnTouchListener(controller)
         setContentView(canvas)
-
         controller.runGame()
     }
 
+    // AlertDialog Window after winning the level
     fun openDialog() {
         val view: View = View.inflate(this, R.layout.dialog_view, null)
         val builder = AlertDialog.Builder(this)
@@ -42,15 +46,18 @@ class ViewerActivity : AppCompatActivity {
         view.btn_next.setOnClickListener(controller)
     }
 
+    // AlertDialog Window after winning the level
     fun closeDialog() {
         dialog.dismiss()
     }
 
+    // Options Menu in the Toolbar
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.nav_menu, menu)
         return true
     }
 
+    // Items in the Toolbar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         controller.onItemSelected(item)
         return super.onOptionsItemSelected(item)
@@ -59,5 +66,4 @@ class ViewerActivity : AppCompatActivity {
     fun update() {
         canvas?.update()
     }
-
 }

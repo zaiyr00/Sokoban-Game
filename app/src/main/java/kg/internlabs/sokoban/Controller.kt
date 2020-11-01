@@ -4,13 +4,21 @@ import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import kotlinx.android.synthetic.main.dialog_view.view.*
 
-class Controller : View.OnTouchListener, SimpleOnGestureListener, View.OnClickListener {
+/*
+* Sokoban Game
+* Intern Labs 2.0
+* @version 1.0
+* @author Zaiyr Sharsheev <zaiyr.00@gmail.com>
+* 01.11.2020
+*/
 
+class Controller : View.OnTouchListener, SimpleOnGestureListener, View.OnClickListener {
     private val model: Model
     private val gestureDetector: GestureDetector
 
     public constructor(viewer: ViewerActivity){
         model = Model(viewer)
+        // Detect various gestures and events using the supplied MotionEvent
         gestureDetector = GestureDetector(this)
     }
 
