@@ -11,7 +11,7 @@ import android.view.View
 * 01.11.2020
 */
 
-class CanvasSokoban: View {
+public class CanvasSokoban: View {
     private val model: Model
     private val bitmapPlayerIcon: Bitmap
     private val bitmapTargetIcon: Bitmap
@@ -73,6 +73,7 @@ class CanvasSokoban: View {
                         canvas.drawBitmap(bitmapFloorIcon, null, Rect(left, top, right, bottom), null)
                         canvas.drawBitmap(bitmapPlayerIcon, null, Rect(left, top, right, bottom), null)
                     }
+                    else -> return
                 }
                 left += blockVerticalSize
                 right += blockVerticalSize

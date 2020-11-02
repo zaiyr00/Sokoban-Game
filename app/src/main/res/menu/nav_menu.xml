@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-  <item android:id="@+id/nav_restart"
-      android:title="Restart"
-      app:showAsAction="ifRoom"/>
+
+  <item android:id="@+id/nav_restartLevel"
+      android:title="Restart the current level"
+      app:showAsAction="never"/>
+
+  <item android:id="@+id/nav_levelOne"
+      android:title="Open Level №1"
+      app:showAsAction="never"/>
+
+  <item android:id="@+id/nav_levelTwo"
+      android:title="Open Level №2"
+      app:showAsAction="never"/>
+
+  <item android:id="@+id/nav_levelThree"
+      android:title="Open Level №3"
+      app:showAsAction="never"/>
+
+  <item android:id="@+id/nav_levelFour"
+      android:title="Open Level №4"
+      app:showAsAction="never"/>
+
+  <item android:id="@+id/nav_levelFive"
+      android:title="Open Level №5"
+      app:showAsAction="never"/>
+
+  <item android:id="@+id/nav_levelSix"
+      android:title="Open Level №6"
+      app:showAsAction="never"/>
+
+  <item android:id="@+id/nav_levelSeven"
+      android:title="Open Level №7"
+      app:showAsAction="never"/>
+
+  <item android:id="@+id/nav_levelEight"
+      android:title="Open Level №8"
+      app:showAsAction="never"/>
+
+  <item android:id="@+id/nav_levelNine"
+      android:title="Open Level №9"
+      app:showAsAction="never"/>
 </menu>

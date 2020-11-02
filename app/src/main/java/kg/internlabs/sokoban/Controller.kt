@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.dialog_view.view.*
 * 01.11.2020
 */
 
-class Controller : View.OnTouchListener, SimpleOnGestureListener, View.OnClickListener {
+public class Controller : View.OnTouchListener, SimpleOnGestureListener, View.OnClickListener {
     private val model: Model
     private val gestureDetector: GestureDetector
 
@@ -38,12 +38,7 @@ class Controller : View.OnTouchListener, SimpleOnGestureListener, View.OnClickLi
         model.createMap()
     }
 
-    override fun onFling(
-        e1: MotionEvent,
-        e2: MotionEvent,
-        velocityX: Float,
-        velocityY: Float
-    ): Boolean {
+    override fun onFling( e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float ) : Boolean {
         var result = false
         try {
             val diffY = e2.y - e1.y
@@ -90,7 +85,16 @@ class Controller : View.OnTouchListener, SimpleOnGestureListener, View.OnClickLi
     fun onItemSelected(item: MenuItem): Boolean {
         var action: String = ""
         when(item.itemId) {
-            R.id.nav_restart -> action = "Restart"
+            R.id.nav_restartLevel -> action = "RestartLevel"
+            R.id.nav_levelOne -> action = "LevelOne"
+            R.id.nav_levelTwo -> action = "LevelTwo"
+            R.id.nav_levelThree -> action = "LevelThree"
+            R.id.nav_levelFour -> action = "LevelFour"
+            R.id.nav_levelFive -> action = "LevelFive"
+            R.id.nav_levelSix -> action = "LevelSix"
+            R.id.nav_levelSeven -> action = "LevelSeven"
+            R.id.nav_levelEight -> action = "LevelEight"
+            R.id.nav_levelNine -> action = "LevelNine"
         }
         model.doAction(action)
         return true

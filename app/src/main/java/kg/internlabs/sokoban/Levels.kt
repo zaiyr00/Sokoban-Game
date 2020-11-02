@@ -15,6 +15,8 @@ import java.io.InputStreamReader
 
 public class Levels {
     private val viewer: ViewerActivity
+    private val levelsFile: LevelsFile
+    private val levelsServer: LevelsServer
     private var nextLevel: Int
     private var currentLevel: Int
 
@@ -22,10 +24,22 @@ public class Levels {
         this.viewer = viewer
         nextLevel = 1
         currentLevel = 1
+        levelsFile = LevelsFile(viewer)
+        levelsServer = LevelsServer()
     }
 
     fun nextLevel() : Array<Array<Int>> {
         currentLevel = nextLevel
+        return chooseLevel(nextLevel++)
+    }
+
+    fun getCurrentLevel(): Int {
+        return currentLevel
+    }
+
+    fun levelItemClicked(level: Int) : Array<Array<Int>> {
+        currentLevel = level
+        nextLevel = level
         return chooseLevel(nextLevel++)
     }
 
@@ -45,10 +59,8 @@ public class Levels {
             1 -> getLevelOne()
             2 -> getLevelTwo()
             3 -> getLevelThree()
-            4 -> getLevelFour()
-            5 -> getLevelFive()
-            6 -> getLevelSix()
-            7, 8, 9 -> getServerLevel(numOfLevel)
+            4, 5, 6 -> levelsFile.getLevel(numOfLevel)
+            7, 8, 9 -> levelsServer.getServerLevel(numOfLevel)
             else -> startOver()
         }
         return map
@@ -102,34 +114,6 @@ public class Levels {
         map[9] = arrayOf(1, 0, 0, 2, 0, 2, 0, 1)
         map[10] = arrayOf(1, 0, 0, 0, 0, 0, 4, 1)
         map[11] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
-        return map
-    }
-
-    private fun getLevelFour(): Array<Array<Int>> {
-        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelFour.txt")
-        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
-        return map
-    }
-
-    private fun getLevelFive(): Array<Array<Int>> {
-        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelFive.txt")
-        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
-        return map
-    }
-
-    private fun getLevelSix(): Array<Array<Int>> {
-        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelSix.txt")
-        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
-        return map
-    }
-    
-    private fun getServerLevel(numOfLevel: Int): Array<Array<Int>> {
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-        val connectToServer = ConnectToServer(numOfLevel)
-        connectToServer.go()
-        var response: String = connectToServer.getResponse()
-        val map: Array<Array<Int>> = MapFileManagement().getMap(response)
         return map
     }
 }

@@ -10,7 +10,7 @@ import java.io.*
 * 01.11.2020
 */
 
-class LevelsParser {
+public class LevelsParser {
     fun getMessageFromFile(viewer: ViewerActivity, fileName: String): String {
         var lettersFromFile = ""
         try {

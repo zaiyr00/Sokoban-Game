@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.dialog_view.view.*
 * 01.11.2020
 */
 
-class ViewerActivity : AppCompatActivity {
+public class ViewerActivity : AppCompatActivity {
     private val controller: Controller
     private var canvas: CanvasSokoban?
     private lateinit var dialog: AlertDialog
@@ -28,6 +28,7 @@ class ViewerActivity : AppCompatActivity {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.title = "Sokoban Game | Level №1"
         canvas = CanvasSokoban(this, controller.getModel())
         canvas?.setOnTouchListener(controller)
         setContentView(canvas)
@@ -61,6 +62,10 @@ class ViewerActivity : AppCompatActivity {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         controller.onItemSelected(item)
         return super.onOptionsItemSelected(item)
+    }
+
+    fun updateToolbarTitle(currentLevel: Int) {
+        supportActionBar?.title = "Sokoban Game | Level №$currentLevel"
     }
 
     fun update() {

@@ -8,7 +8,7 @@ package kg.internlabs.sokoban
 * 01.11.2020
 */
 
-class MapFileManagement {
+public class MapFileManagement {
     fun getMap(message: String): Array<Array<Int>> {
         val message = message.replaceFirst("^\\s*".toRegex(), "")
         var row = 0
