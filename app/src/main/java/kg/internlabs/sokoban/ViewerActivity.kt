@@ -28,7 +28,6 @@ public class ViewerActivity : AppCompatActivity {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.title = "Sokoban Game | Level №1"
         canvas = CanvasSokoban(this, controller.getModel())
         canvas?.setOnTouchListener(controller)
         setContentView(canvas)
