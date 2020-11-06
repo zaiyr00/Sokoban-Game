@@ -31,6 +31,7 @@ public class Levels {
 
     fun nextLevel() : Array<Array<Int>> {
         previousLevel = currentLevel
+        currentLevel = nextLevel
         return chooseLevel(nextLevel++)
     }
 
