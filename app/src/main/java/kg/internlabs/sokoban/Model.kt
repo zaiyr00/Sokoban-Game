@@ -1,9 +1,5 @@
 package kg.internlabs.sokoban
 
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
-
 /*
 * Sokoban Game
 * Intern Labs 2.0
@@ -171,7 +167,7 @@ public class Model {
     }
 
    fun updateMap(): Array<Array<Int>> {
-        return map
+       return map
    }
 
    private fun isPlayerWon() : Boolean {

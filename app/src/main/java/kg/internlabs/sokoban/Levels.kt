@@ -1,9 +1,8 @@
 package kg.internlabs.sokoban
 
-import android.os.StrictMode
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
+import android.content.Context
+import android.net.ConnectivityManager
+import android.widget.Toast
 
 /*
 * Sokoban Game
@@ -19,17 +18,19 @@ public class Levels {
     private val levelsServer: LevelsServer
     private var nextLevel: Int
     private var currentLevel: Int
+    private var previousLevel: Int
 
     constructor(viewer: ViewerActivity) {
         this.viewer = viewer
         nextLevel = 1
         currentLevel = 1
+        previousLevel = 1
         levelsFile = LevelsFile(viewer)
         levelsServer = LevelsServer()
     }
 
     fun nextLevel() : Array<Array<Int>> {
-        currentLevel = nextLevel
+        previousLevel = currentLevel
         return chooseLevel(nextLevel++)
     }
 
@@ -38,6 +39,7 @@ public class Levels {
     }
 
     fun levelItemClicked(level: Int) : Array<Array<Int>> {
+        previousLevel = currentLevel
         currentLevel = level
         nextLevel = level
         return chooseLevel(nextLevel++)
@@ -60,7 +62,15 @@ public class Levels {
             2 -> getLevelTwo()
             3 -> getLevelThree()
             4, 5, 6 -> levelsFile.getLevel(numOfLevel)
-            7, 8, 9 -> levelsServer.getServerLevel(numOfLevel)
+            7, 8, 9 -> {
+                if (isNetworkAvailable(viewer)) {
+                    levelsServer.getServerLevel(numOfLevel)
+                } else {
+                    Toast.makeText(viewer, "Error! Check your internet connection!", Toast.LENGTH_LONG).show()
+                    currentLevel = previousLevel
+                    chooseLevel(previousLevel)
+                }
+            }
             else -> startOver()
         }
         return map
@@ -115,5 +125,11 @@ public class Levels {
         map[10] = arrayOf(1, 0, 0, 0, 0, 0, 4, 1)
         map[11] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
         return map
+    }
+
+    fun isNetworkAvailable(viewer: ViewerActivity):Boolean{
+        val connectivityManager=viewer.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo=connectivityManager.activeNetworkInfo
+        return  networkInfo!=null && networkInfo.isConnected
     }
 }
