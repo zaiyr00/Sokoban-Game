@@ -2,7 +2,7 @@
 
 # Project requirements:
 1) Link to a repository :white_check_mark:
-2) Use of data storage (DB, Cloud or SharedPreferences) 
+2) Use of data storage (DB, Cloud or SharedPreferences) :white_check_mark:
 3) Design and representation (figma design first is welcome) 
 4) Wise use of libraries and frameworks :white_check_mark:
 5) Clean code :white_check_mark:
