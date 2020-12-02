@@ -1,5 +1,13 @@
 package kg.internlabs.sokoban
 
+/*
+* Sokoban Game
+* Intern Labs 2.0
+* @version 1.0
+* @author Zaiyr Sharsheev <zaiyr.00@gmail.com>
+* 01.11.2020
+*/
+
 public class LevelsFile {
     private val viewer: ViewerActivity
 
@@ -8,13 +16,35 @@ public class LevelsFile {
     }
 
     fun getLevel(currentLevel: Int): Array<Array<Int>> {
-        var map: Array<Array<Int>>
-        map = when(currentLevel) {
+        return when(currentLevel) {
+            1 -> getLevelOne()
+            2 -> getLevelTwo()
+            3 -> getLevelThree()
             4 -> getLevelFour()
             5 -> getLevelFive()
             6 -> getLevelSix()
-            else -> arrayOf(emptyArray<Int>())
+            7 -> getLevelSeven()
+            8 -> getLevelEight()
+            9 -> getLevelNine()
+            else -> arrayOf(emptyArray())
         }
+    }
+
+    private fun getLevelOne(): Array<Array<Int>> {
+        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelOne.txt")
+        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
+        return map
+    }
+
+    private fun getLevelTwo(): Array<Array<Int>> {
+        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelTwo.txt")
+        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
+        return map
+    }
+
+    private fun getLevelThree(): Array<Array<Int>> {
+        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelFour.txt")
+        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
         return map
     }
 
@@ -32,6 +62,24 @@ public class LevelsFile {
 
     private fun getLevelSix(): Array<Array<Int>> {
         val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelSix.txt")
+        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
+        return map
+    }
+
+    private fun getLevelSeven(): Array<Array<Int>> {
+        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelSeven.txt")
+        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
+        return map
+    }
+
+    private fun getLevelEight(): Array<Array<Int>> {
+        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelEight.txt")
+        val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
+        return map
+    }
+
+    private fun getLevelNine(): Array<Array<Int>> {
+        val levelsParser: String = LevelsParser().getMessageFromFile(viewer, "levels/levelNine.txt")
         val map: Array<Array<Int>> = MapFileManagement().getMap(levelsParser)
         return map
     }

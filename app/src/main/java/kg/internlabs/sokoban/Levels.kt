@@ -1,9 +1,5 @@
 package kg.internlabs.sokoban
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.widget.Toast
-
 /*
 * Sokoban Game
 * Intern Labs 2.0
@@ -15,7 +11,6 @@ import android.widget.Toast
 public class Levels {
     private val viewer: ViewerActivity
     private val levelsFile: LevelsFile
-    private val levelsServer: LevelsServer
     private var nextLevel: Int
     private var currentLevel: Int
     private var previousLevel: Int
@@ -26,7 +21,6 @@ public class Levels {
         currentLevel = 1
         previousLevel = 1
         levelsFile = LevelsFile(viewer)
-        levelsServer = LevelsServer()
     }
 
     fun nextLevel() : Array<Array<Int>> {
@@ -53,84 +47,13 @@ public class Levels {
     private fun startOver() : Array<Array<Int>> {
         nextLevel = 2
         currentLevel = 1
-        return getLevelOne()
+        return levelsFile.getLevel(currentLevel)
     }
 
     private fun chooseLevel(numOfLevel: Int): Array<Array<Int>> {
-        var map: Array<Array<Int>>
-        map = when(numOfLevel) {
-            1 -> getLevelOne()
-            2 -> getLevelTwo()
-            3 -> getLevelThree()
-            4, 5, 6 -> levelsFile.getLevel(numOfLevel)
-            7, 8, 9 -> {
-                if (isNetworkAvailable(viewer)) {
-                    levelsServer.getServerLevel(numOfLevel)
-                } else {
-                    Toast.makeText(viewer, "Error! Check your internet connection!", Toast.LENGTH_LONG).show()
-                    currentLevel = previousLevel
-                    chooseLevel(previousLevel)
-                }
-            }
+        return when(numOfLevel) {
+            1, 2, 3, 4, 5, 6, 7, 8, 9 -> levelsFile.getLevel(numOfLevel)
             else -> startOver()
         }
-        return map
-    }
-
-    private fun getLevelOne(): Array<Array<Int>> {
-        val map: Array<Array<Int>> = Array(12) { Array(8) { 0 } }
-        map[0] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
-        map[1] = arrayOf(1, 3, 0, 0, 0, 0, 3, 1)
-        map[2] = arrayOf(1, 1, 1, 0, 0, 1, 1, 1)
-        map[3] = arrayOf(1, 0, 0, 0, 0, 0, 0, 1)
-        map[4] = arrayOf(1, 0, 0, 2, 2, 0, 0, 1)
-        map[5] = arrayOf(1, 0, 0, 0, 0, 0, 0, 1)
-        map[6] = arrayOf(1, 0, 0, 0, 0, 0, 0, 1)
-        map[7] = arrayOf(1, 0, 0, 2, 2, 0, 0, 1)
-        map[8] = arrayOf(1, 0, 0, 4, 0, 0, 0, 1)
-        map[9] = arrayOf(1, 1, 1, 0, 0, 1, 1, 1)
-        map[10] = arrayOf(1, 3, 0, 0, 0, 0, 3, 1)
-        map[11] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
-        return map
-    }
-
-    private fun getLevelTwo(): Array<Array<Int>> {
-        val map: Array<Array<Int>> = Array(12) { Array(8) { 0 } }
-        map[0] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
-        map[1] = arrayOf(1, 1, 1, 1, 0, 0, 0, 1)
-        map[2] = arrayOf(1, 1, 0, 2, 0, 0, 0, 1)
-        map[3] = arrayOf(1, 1, 0, 1, 0, 0, 3, 1)
-        map[4] = arrayOf(1, 0, 0, 3, 1, 1, 1, 1)
-        map[5] = arrayOf(1, 0, 1, 2, 0, 0, 1, 1)
-        map[6] = arrayOf(1, 4, 2, 0, 1, 0, 1, 1)
-        map[7] = arrayOf(1, 0, 3, 0, 0, 0, 1, 1)
-        map[8] = arrayOf(1, 0, 0, 0, 0, 2, 0, 1)
-        map[9] = arrayOf(1, 1, 1, 0, 1, 1, 0, 1)
-        map[10] = arrayOf(1, 3, 0, 0, 0, 0, 0, 1)
-        map[11] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
-        return map
-    }
-
-    private fun getLevelThree(): Array<Array<Int>> {
-        val map: Array<Array<Int>> = Array(12) { Array(8) { 0 } }
-        map[0] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
-        map[1] = arrayOf(1, 3, 3, 0, 1, 0, 0, 1)
-        map[2] = arrayOf(1, 3, 3, 0, 1, 0, 0, 1)
-        map[3] = arrayOf(1, 3, 3, 0, 1, 2, 0, 1)
-        map[4] = arrayOf(1, 0, 0, 0, 0, 0, 0, 1)
-        map[5] = arrayOf(1, 0, 0, 0, 1, 0, 0, 1)
-        map[6] = arrayOf(1, 1, 1, 1, 1, 2, 0, 1)
-        map[7] = arrayOf(1, 0, 0, 0, 0, 0, 0, 1)
-        map[8] = arrayOf(1, 0, 2, 0, 2, 0, 0, 1)
-        map[9] = arrayOf(1, 0, 0, 2, 0, 2, 0, 1)
-        map[10] = arrayOf(1, 0, 0, 0, 0, 0, 4, 1)
-        map[11] = arrayOf(1, 1, 1, 1, 1, 1, 1, 1)
-        return map
-    }
-
-    fun isNetworkAvailable(viewer: ViewerActivity):Boolean{
-        val connectivityManager=viewer.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo=connectivityManager.activeNetworkInfo
-        return  networkInfo!=null && networkInfo.isConnected
     }
 }
