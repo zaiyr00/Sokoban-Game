@@ -1,4 +1,4 @@
-package kg.internlabs.sokoban
+package kg.internlabs.sokoban.utils
 
 /*
 * Sokoban Game

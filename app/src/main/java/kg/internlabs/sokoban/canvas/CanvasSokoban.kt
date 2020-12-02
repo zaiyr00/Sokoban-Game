@@ -1,7 +1,11 @@
-package kg.internlabs.sokoban
+package kg.internlabs.sokoban.canvas
 
 import android.graphics.*
 import android.view.View
+import kg.internlabs.sokoban.R
+import kg.internlabs.sokoban.model.Model
+import kg.internlabs.sokoban.utils.SokobanProperties
+import kg.internlabs.sokoban.view.ViewerActivity
 
 /*
 * Sokoban Game

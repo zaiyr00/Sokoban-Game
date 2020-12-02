@@ -1,4 +1,8 @@
-package kg.internlabs.sokoban
+package kg.internlabs.sokoban.model
+
+import kg.internlabs.sokoban.level.Levels
+import kg.internlabs.sokoban.utils.SokobanProperties
+import kg.internlabs.sokoban.view.ViewerActivity
 
 /*
 * Sokoban Game
@@ -180,7 +184,8 @@ public class Model {
 
     private fun isTargetChanged() {
         for(target in targetsPositions) {
-            if (map[target[0]][target[1]] == SokobanProperties.FLOOR) map[target[0]][target[1]] = SokobanProperties.TARGET
+            if (map[target[0]][target[1]] == SokobanProperties.FLOOR) map[target[0]][target[1]] =
+                SokobanProperties.TARGET
         }
     }
 }

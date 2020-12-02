@@ -1,4 +1,6 @@
-package kg.internlabs.sokoban
+package kg.internlabs.sokoban.level
+
+import kg.internlabs.sokoban.view.ViewerActivity
 
 /*
 * Sokoban Game

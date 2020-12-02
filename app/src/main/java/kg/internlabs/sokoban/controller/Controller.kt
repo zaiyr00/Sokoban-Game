@@ -1,7 +1,11 @@
-package kg.internlabs.sokoban
+package kg.internlabs.sokoban.controller
 
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
+import kg.internlabs.sokoban.R
+import kg.internlabs.sokoban.utils.SokobanProperties
+import kg.internlabs.sokoban.model.Model
+import kg.internlabs.sokoban.view.ViewerActivity
 import kotlinx.android.synthetic.main.dialog_view.view.*
 
 /*

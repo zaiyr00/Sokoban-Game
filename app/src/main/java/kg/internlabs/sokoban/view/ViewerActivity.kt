@@ -1,4 +1,4 @@
-package kg.internlabs.sokoban
+package kg.internlabs.sokoban.view
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -6,6 +6,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import kg.internlabs.sokoban.canvas.CanvasSokoban
+import kg.internlabs.sokoban.controller.Controller
+import kg.internlabs.sokoban.R
 import kotlinx.android.synthetic.main.dialog_view.view.*
 
 /*
