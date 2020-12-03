@@ -17,7 +17,7 @@ This game was developed using the MVC pattern in the Kotlin Programming Language
   PLAYER = 4
 </h5>
 
-When loading a level, I used a copy of a two-dimensional array and manipulated it while the player was moving.
+When loading a level, I used a copy of a two-dimensional array and manipulated it while the player was moving. There are 9 levels in this game.
 
 # Project requirements:
 1) Link to a repository :white_check_mark:
