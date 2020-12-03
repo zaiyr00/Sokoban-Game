@@ -1,6 +1,6 @@
 # Sokoban-Game
 Sokoban (倉庫番, Sōko-ban) is a puzzle video game genre in which the player pushes crates or boxes around in a warehouse, trying to get them to storage locations.
-This game was developed using the MVC pattern in the Kotlin Programming Language. I used a two-dimensional array of integers as an abstract model for my levels in which:
+This game was developed using the MVC pattern in the Kotlin Programming Language. For the user interface I used the Canvas Framework. I also used a two-dimensional array of integers as an abstract model for my levels in which:
 <h5>
   FLOOR = 0
 </h5>
