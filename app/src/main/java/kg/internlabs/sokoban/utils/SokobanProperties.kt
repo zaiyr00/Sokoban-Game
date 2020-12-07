@@ -21,5 +21,7 @@ public class SokobanProperties {
         val BOX = 2
         val TARGET = 3
         val PLAYER = 4
+
+        val SOUND_ID = 1
     }
 }

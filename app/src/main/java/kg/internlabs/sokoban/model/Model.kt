@@ -104,16 +104,20 @@ public class Model {
             map[xPosition][yPosition + 1] = SokobanProperties.PLAYER
             map[xPosition][yPosition + 2] = SokobanProperties.BOX
             yPosition += 1
+            viewer.pushingSound()
         } else if (map[xPosition][yPosition + 1] == SokobanProperties.BOX && map[xPosition][yPosition + 2] == SokobanProperties.TARGET) {
             map[xPosition][yPosition] = SokobanProperties.FLOOR
             map[xPosition][yPosition + 1] = SokobanProperties.PLAYER
             map[xPosition][yPosition + 2] = SokobanProperties.BOX
             yPosition += 1
+            viewer.targetSound()
         } else if (map[xPosition][yPosition + 1] == SokobanProperties.TARGET || map[xPosition][yPosition + 1] == SokobanProperties.FLOOR) {
             map[xPosition][yPosition + 1] = SokobanProperties.PLAYER
             map[xPosition][yPosition] = SokobanProperties.FLOOR
             yPosition += 1
+            viewer.stepSound()
         }
+        viewer.stopSounds()
     }
 
     private fun moveLeft() {
@@ -122,16 +126,20 @@ public class Model {
             map[xPosition][yPosition - 1] = SokobanProperties.PLAYER
             map[xPosition][yPosition - 2] = SokobanProperties.BOX
             yPosition -= 1
+            viewer.pushingSound()
         } else if (map[xPosition][yPosition - 1] == SokobanProperties.BOX && map[xPosition][yPosition - 2] == SokobanProperties.TARGET) {
             map[xPosition][yPosition] = SokobanProperties.FLOOR
             map[xPosition][yPosition - 1] = SokobanProperties.PLAYER
             map[xPosition][yPosition - 2] = SokobanProperties.BOX
             yPosition -= 1
+            viewer.targetSound()
         } else if (map[xPosition][yPosition - 1] == SokobanProperties.TARGET || map[xPosition][yPosition - 1] == SokobanProperties.FLOOR) {
             map[xPosition][yPosition - 1] = SokobanProperties.PLAYER
             map[xPosition][yPosition] = SokobanProperties.FLOOR
             yPosition -= 1
+            viewer.stepSound()
         }
+        viewer.stopSounds()
     }
 
     private fun moveUp() {
@@ -140,16 +148,20 @@ public class Model {
             map[xPosition - 1][yPosition] = SokobanProperties.PLAYER
             map[xPosition - 2][yPosition] = SokobanProperties.BOX
             xPosition -= 1
+            viewer.pushingSound()
         } else if (map[xPosition - 1][yPosition] == SokobanProperties.BOX && map[xPosition - 2][yPosition] == SokobanProperties.TARGET) {
             map[xPosition][yPosition] = SokobanProperties.FLOOR
             map[xPosition - 1][yPosition] = SokobanProperties.PLAYER
             map[xPosition - 2][yPosition] = SokobanProperties.BOX
             xPosition -= 1
+            viewer.targetSound()
         } else if (map[xPosition - 1][yPosition] == SokobanProperties.TARGET || map[xPosition - 1][yPosition] == SokobanProperties.FLOOR) {
             map[xPosition - 1][yPosition] = SokobanProperties.PLAYER
             map[xPosition][yPosition] = SokobanProperties.FLOOR
             xPosition -= 1
+            viewer.stepSound()
         }
+        viewer.stopSounds()
     }
 
     private fun moveDown() {
@@ -158,16 +170,20 @@ public class Model {
             map[xPosition + 1][yPosition] = SokobanProperties.PLAYER
             map[xPosition + 2][yPosition] = SokobanProperties.BOX
             xPosition += 1
+            viewer.pushingSound()
         } else if (map[xPosition + 1][yPosition] == SokobanProperties.BOX && map[xPosition + 2][yPosition] == SokobanProperties.TARGET) {
             map[xPosition][yPosition] = SokobanProperties.FLOOR
             map[xPosition + 1][yPosition] = SokobanProperties.PLAYER
             map[xPosition + 2][yPosition] = SokobanProperties.BOX
             xPosition += 1
+            viewer.targetSound()
         } else if (map[xPosition + 1][yPosition] == SokobanProperties.TARGET || map[xPosition + 1][yPosition] == SokobanProperties.FLOOR) {
             map[xPosition + 1][yPosition] = SokobanProperties.PLAYER
             map[xPosition][yPosition] = SokobanProperties.FLOOR
             xPosition += 1
+            viewer.stepSound()
         }
+        viewer.stopSounds()
     }
 
    fun updateMap(): Array<Array<Int>> {
